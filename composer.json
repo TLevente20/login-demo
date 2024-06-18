@@ -1,0 +1,6 @@
+{
+    "name": "takacs/login-demo",
+    "description": "This is a simple login application",
+    "type": "project",
+    "require": {}
+}
