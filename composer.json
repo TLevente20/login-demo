@@ -2,5 +2,12 @@
     "name": "takacs/login-demo",
     "description": "This is a simple login application",
     "type": "project",
-    "require": {}
+    "autoload": {
+        "psr-4": {
+          "App\\": "App/"
+         }
+      },
+    "require": {
+        "monolog/monolog": "1.25.1"
+    }
 }
