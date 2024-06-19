@@ -1,4 +1,4 @@
-<?php namespace App\Lib;
+<?php namespace App;
 
 use Monolog\ErrorHandler;
 use Monolog\Handler\StreamHandler;
