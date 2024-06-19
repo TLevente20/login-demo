@@ -4,19 +4,49 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="public/views/css/login.css">
     <title>Login</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <div class="login-container">
         <h2>Login</h2>
-        <form action="login.php" method="POST">
+        <form id="loginForm">
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
 
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required>
+            <input type="text" id="hidden" name="hidden">
 
             <input type="submit" value="Login">
         </form>
     </div>
 </body>
+<script>
+    $(document).ready(function() {
+        let $email = ('#email');
+        let $password = ('#password');
+        let $hidden = ('#hidden');
+        $('#loginForm').on('submit', function(e) {
+            e.preventDefault(); 
+
+            let user = {
+                email : $email,
+                $password : $password,
+                $hidden : $hidden,
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '/login',
+                data: user,
+                success: function(response) {
+                    
+                },
+                error: function(xhr, status, error) {
+                    
+                }
+            });
+        });
+    });
+</script>
 </html>

@@ -26,6 +26,6 @@ if ($conn->query($sql) === TRUE) {
 } else {
   echo "Error used database: " . $conn->error;
 }
-$conn->close();
+
 ?>
 

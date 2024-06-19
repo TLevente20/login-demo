@@ -1,6 +1,8 @@
-<?php
+<?php namespace App;
 
-class UserModel {
+use mysqli;
+
+class User{
     protected $conn;
 
     public function __construct(mysqli $conn) {

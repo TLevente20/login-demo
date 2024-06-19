@@ -1,45 +1,37 @@
-<?php namespace App;
+<?php
+
+namespace App;
 
 class Router
 {
+    protected static $routes = [];
+
     public static function get($route, $callback)
     {
-        if (strcasecmp($_SERVER['REQUEST_METHOD'], 'GET') !== 0) {
-            return;
-        }
-
-        self::on($route, $callback);
+        self::$routes['GET'][$route] = $callback;
     }
 
     public static function post($route, $callback)
     {
-        if (strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') !== 0) {
-            return;
-        }
-
-        self::on($route, $callback);
+        self::$routes['POST'][$route] = $callback;
     }
 
-    public static function on($regex, $cb)
+    public static function handleRequest()
     {
-        // param standardasation 
-        $params = $_SERVER['REQUEST_URI'];
-        $params = (stripos($params, "/") !== 0) ? "/" . $params : $params;
-        $regex = str_replace('/', '\/', $regex);
-        $is_match = preg_match('/^' . ($regex) . '$/', $params, $matches, PREG_OFFSET_CAPTURE);
-
-        // checking if the given route matches with the param
-        if ($is_match) {
-
-            // first value is normally the route, lets remove it
-            array_shift($matches);
-
-            // Get the matches as parameters
-            $params = array_map(function ($param) {
-                return $param[0];
-            }, $matches);
-            
-            $cb(new Request($params), new Response());
+        $method = $_SERVER['REQUEST_METHOD'];
+        $route = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        
+        if (isset(self::$routes[$method][$route])) {
+            error_log("route is found");
+            $callback = self::$routes[$method][$route];
+            $request = new Request($_REQUEST); 
+            $response = new Response();
+            $callback($request, $response);
+        } else {
+            // Handle 404 Not Found
+            error_log("route is not found");
+            http_response_code(404);
+            echo "404 Not Found";
         }
     }
 }
