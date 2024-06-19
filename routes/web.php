@@ -1,12 +1,12 @@
-<?php
-use App\Lib\Router;
+<?php namespace App;
+use App\Router;
 
 Router::get('/', function () {
     echo 'We are home';
 });
 
 Router::get('/login', function () {
-    include __DIR__ . '/../views/login.html';
+    include __DIR__ . '/../public/views/login.html';
 });
 
 

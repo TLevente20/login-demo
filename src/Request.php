@@ -1,4 +1,4 @@
-<?php namespace App\Lib;
+<?php namespace App;
 
 class Request
 {
