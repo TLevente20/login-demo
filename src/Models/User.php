@@ -8,7 +8,7 @@ For testing purposes i've declared the following user:
 email => test@gmail.com
 password => password
 hash => $2y$10$wVEN9JkscWgLlOgJWnREse.WxHjAcakzekVbz0uvN4n.VygV57i0C
- */
+*/
 
 class User{
     protected $conn;

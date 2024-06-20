@@ -23,7 +23,7 @@ if ($conn->connect_error) {
 // Use database
 $sql = "USE logindemo";
 if ($conn->query($sql) === TRUE) {
-    $logger->info('BD connected succesfully');
+
 } else {
   echo "Error used database: " . $conn->error;
 }
