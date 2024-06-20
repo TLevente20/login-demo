@@ -11,7 +11,7 @@
     <!-- Login from -->
     <div class="login-container">
         <h2>Login</h2>
-        <form id="loginForm">
+        <form action="/login" method="POST" id="loginForm">
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
 
@@ -27,24 +27,14 @@
     
     $(document).ready(function() {
 
-        /* Get data from form */
-        let $email = ('#email');
-        let $password = ('#password');
-        let $hidden = ('#hidden');
         $('#loginForm').on('submit', function(e) {
             e.preventDefault(); 
-
-            let user = {
-                email : $email,
-                $password : $password,
-                $hidden : $hidden,
-            }
 
             /* Send Ajax Request */
             $.ajax({
                 type: 'POST',
                 url: '/login',
-                data: user,
+                data: $(this).serialize(),
                 success: function(response) {
                     
                 },

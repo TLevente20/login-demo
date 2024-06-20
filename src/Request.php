@@ -1,5 +1,7 @@
 <?php namespace App;
 
+use Error;
+
 class Request
 {
     public $params;
@@ -24,9 +26,9 @@ class Request
 
         $body = [];
         foreach ($_POST as $key => $value) {
-            $body[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS);
+            $body[$key] = $value;
         }
-
+        
         return $body;
     }
 }

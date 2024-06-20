@@ -1,16 +1,18 @@
 <?php namespace App;
 use App\Router;
+use App\Controllers\LoginController;
 
 Router::get('/', function ($request,$response) {
-    echo 'We are home';
+    LoginController::index();
 });
 
 Router::get('/login', function ($request,$response) {
-    include __DIR__ . '/../public/views/login.html';
+    LoginController::showLogin();
 });
 
 Router::post('/login',function ($request,$response) {
-    error_log("puutting");
+
+    LoginController::login($request->getBody());
 });
 
 //Run request handeling in src/Router.php
