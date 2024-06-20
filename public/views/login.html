@@ -43,7 +43,12 @@
                     //The request succeded
                     success: function(response) {
                         if (response.status === 'success') {
-                            
+
+                            //Generatong JSW Tokens
+                            localStorage.setItem('jwt', response.jwt);
+                            localStorage.setItem('refresh_token', response.refresh_token);
+
+                            //Redirect
                             window.location.href = response.redirect;
                             
                         } else {
