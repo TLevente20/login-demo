@@ -1,4 +1,5 @@
-<?php namespace App;
+<?php
+
 use App\Router;
 use App\Controllers\LoginController;
 
