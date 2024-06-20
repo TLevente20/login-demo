@@ -4,6 +4,7 @@ namespace App;
 
 class Router
 {
+    //Make an Array of all declared routes
     protected static $routes = [];
 
     public static function get($route, $callback)
@@ -16,6 +17,7 @@ class Router
         self::$routes['POST'][$route] = $callback;
     }
 
+    //The method that routes/web.php uses to match URI and handle the request
     public static function handleRequest()
     {
         $method = $_SERVER['REQUEST_METHOD'];

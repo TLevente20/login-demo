@@ -7,6 +7,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+
+    <!-- Login from -->
     <div class="login-container">
         <h2>Login</h2>
         <form id="loginForm">
@@ -22,7 +24,10 @@
     </div>
 </body>
 <script>
+    
     $(document).ready(function() {
+
+        /* Get data from form */
         let $email = ('#email');
         let $password = ('#password');
         let $hidden = ('#hidden');
@@ -35,6 +40,7 @@
                 $hidden : $hidden,
             }
 
+            /* Send Ajax Request */
             $.ajax({
                 type: 'POST',
                 url: '/login',

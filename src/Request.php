@@ -6,6 +6,7 @@ class Request
     public $reqMethod;
     public $contentType;
 
+    //Construct the request with the relevant informations
     public function __construct($params = [])
     {
 
@@ -14,6 +15,7 @@ class Request
         $this->contentType = !empty($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
     }
 
+    //In case of POST request, get the additional data from the request
     public function getBody()
     {
         if ($this->reqMethod !== 'POST') {
