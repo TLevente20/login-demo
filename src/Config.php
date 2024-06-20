@@ -1,12 +1,11 @@
 <?php namespace App;
 
 
-// Get config values
-
 class Config
 {
     private static $config;
 
+    // Get config values
     public static function get($key, $default = null)
     {
         if (is_null(self::$config)) {

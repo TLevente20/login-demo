@@ -43,3 +43,12 @@ body {
 .login-container input[type="submit"]:hover {
     background-color: #45a049;
 }
+#hidden{
+    display: none;
+}
+#error-message{
+    padding-top: 20px;
+    color: red;
+    text-align: center;
+    font-size: large;
+}

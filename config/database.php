@@ -1,10 +1,11 @@
 <?php
+
+use App\Config;
 use App\Logger;
 
-$servername = "127.0.0.1";
-$username = "root";
-$password = "";
-
+$servername = Config::get('DB_SERVERNAME');
+$username = Config::get('DB_USERNAME');
+$password = Config::get('DB_PASSWORD');
 
 
 $logger = Logger::getInstance();
@@ -22,10 +23,8 @@ if ($conn->connect_error) {
 // Use database
 $sql = "USE logindemo";
 if ($conn->query($sql) === TRUE) {
-    $logger->info('BD connected succesfully');
+
 } else {
   echo "Error used database: " . $conn->error;
 }
-$conn->close();
-?>
 

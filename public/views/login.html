@@ -4,19 +4,72 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="public/views/css/login.css">
     <title>Login</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+
+    <!-- Login from -->
     <div class="login-container">
         <h2>Login</h2>
-        <form action="login.php" method="POST">
+        <form action="/login" method="POST" id="loginForm">
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
 
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required>
+            <input type="text" id="hidden" name="hidden">
 
             <input type="submit" value="Login">
         </form>
+        <div id="error-message"></div>
+
     </div>
 </body>
+<script>
+    
+    $(document).ready(function() {
+
+        $('#loginForm').on('submit', function(e) {
+            e.preventDefault(); 
+
+            if($('#hidden').val().trim() === ""){
+
+                /* Send Ajax Request */
+                $.ajax({
+                    type: 'POST',
+                    url: '/login',
+                    data: $(this).serialize(),
+
+                    //The request succeded
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            
+                            window.location.href = response.redirect;
+                            
+                        } else {
+
+                            // Display error message
+                            $('#error-message').text(response.message); 
+                        }
+                    },
+
+                    //The request not succeded
+                    error: function(xhr, status, error) {
+                    if (xhr.status === 401) {
+                        // Handle unauthorized error
+                        $('#error-message').text('Invalid email or password');
+                    } else {
+                        // Handle unexpected errors
+                        $('#error-message').text('An unexpected error occurred');
+                    }
+                }
+
+                });
+            }
+            else{
+                $('#error-message').text("Hidden input has a value!"); 
+            }
+        });
+    });
+</script>
 </html>
