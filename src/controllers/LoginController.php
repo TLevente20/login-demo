@@ -1,7 +1,11 @@
 <?php namespace App\Controllers;
 
+use App\Auth;
 use App\Models\User;
 use App\Logger;
+use Error;
+use Exception;
+
 
 
 class LoginController{
@@ -9,7 +13,7 @@ class LoginController{
     //Show the home page
     public static function index(){
         include 'public\views\home.html';
-    }
+    } 
 
     //Show the login page
     public static function showLogin(){
@@ -36,10 +40,17 @@ class LoginController{
             //The user is found creating a response
             $logger->info("Logging in is succesful. Response code: 200 Email:". $loginData['email']);
             http_response_code(200);
+
+            //Generate JSW token for user
+            $jwt = Auth::generateJWT($user['id']);
+            $refreshToken = Auth::generateRefreshToken($user['id']);
+
             echo json_encode([
                 'status' => 'success',
                 'message' => 'Login successful',
-                'redirect' => '/'
+                'url' => '/',
+                'jwt' => $jwt,
+                'refresh_token' => $refreshToken
             ]);
 
         } else {

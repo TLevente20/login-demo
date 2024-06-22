@@ -8,6 +8,8 @@
          }
       },
     "require": {
-        "monolog/monolog": "1.25.1"
+        "monolog/monolog": "1.25.1",
+        "paragonie/sodium_compat": "^2.0",
+        "firebase/php-jwt": "^6.10"
     }
 }
