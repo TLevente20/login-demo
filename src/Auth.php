@@ -1,11 +1,11 @@
 <?php namespace App;
 
-use Error;
+
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Exception;
 
-class JWTManager{
+class Auth{
 
     public static function generateJWT($userId) {
 
@@ -69,12 +69,12 @@ class JWTManager{
             
             // Validate refresh token
 
-            $decoded = JWTManager::validateToken($Jwt);
+            $decoded = Auth::validateToken($Jwt);
 
             if ($decoded) {
                 
-                $newJWT = JWTManager::generateJWT($decoded['sub']); // Use user ID from the decoded token
-                error_log($newJWT);
+                $newJWT = Auth::generateJWT($decoded['sub']); // Use user ID from the decoded token
+                
                 echo json_encode([
                     'status' => 'success',
                     'token' => $newJWT,

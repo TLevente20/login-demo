@@ -1,7 +1,42 @@
 $(document).ready(function() {
 
+    //Get token from local storage
+    const token = localStorage.getItem('jwt');
+
+    // Validate token on page load
+    if (!token) {
+        window.location.href = '/login'; // Redirect if token is missing
+    } else {
+        $.ajax({
+            type: 'POST',
+            url: '/validate-token',
+            headers: {
+                'Authorization': 'Bearer ' + token
+            },
+            success: function(response) {
+
+                if (typeof response === 'string') {
+                    response = JSON.parse(response);
+                }
+                
+                if (response.status !== 'success') {
+
+                    // Redirect if token is invalid
+                    window.location.href = '/login';
+                }
+            },
+            error: function(xhr, status, error) {
+
+                // Redirect on error
+                window.location.href = '/login'; 
+            }
+        });
+    }
+
+
     // Function to refresh token
     function refreshToken() {
+
         // Get the current token from localStorage
         const currentToken = localStorage.getItem('jwt');
         $.ajax({

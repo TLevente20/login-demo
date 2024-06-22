@@ -29,6 +29,7 @@ class Router
             $response = new Response();
             $callback($request, $response);
         } else {
+            
             // Handle 404 Not Found
             http_response_code(404);
             echo "404 Not Found";

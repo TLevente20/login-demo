@@ -15,12 +15,11 @@ $(document).ready(function() {
                 success: function(response) {
                     if (response.status === 'success') {
 
-                        //Generatong JSW Tokens
+                        //Giving JSW Tokens For local storage
                         localStorage.setItem('jwt', response.jwt);
                         localStorage.setItem('refresh_token', response.refresh_token);
 
-                        //Redirect
-                        window.location.href = response.redirect;
+                        window.location.href = response.url;
                         
                     } else {
 
@@ -32,9 +31,11 @@ $(document).ready(function() {
                 //The request not succeded
                 error: function(xhr, status, error) {
                 if (xhr.status === 401) {
+
                     // Handle unauthorized error
                     $('#error-message').text('Invalid email or password');
                 } else {
+
                     // Handle unexpected errors
                     $('#error-message').text('An unexpected error occurred');
                 }
