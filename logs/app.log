@@ -558,3 +558,5 @@
 [2024-06-22 22:31:42] app.INFO: Logging in is succesful. Response code: 200 Email:test@gmail.com [] []
 [2024-06-22 22:32:05] app.INFO: Logging in is succesful. Response code: 200 Email:test@gmail.com [] []
 [2024-06-22 22:50:25] app.INFO: Logging in is succesful. Response code: 200 Email:test@gmail.com [] []
+[2024-06-23T17:39:00.145520+00:00] app.INFO: Logging in has failed due to invalid credencials. Response code: 401 [] []
+[2024-06-23T17:39:08.601202+00:00] app.INFO: Logging in is succesful. Response code: 200 Email:test@gmail.com [] []

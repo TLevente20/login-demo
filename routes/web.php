@@ -19,35 +19,11 @@ Router::post('/login',function ($request,$response) {
 });
 
 Router::post('/refresh-token', function ($request, $response) {
-    Auth::refreshToken($request);
+    Auth::refreshToken();
 });
 
 Router::post('/validate-token', function ($request, $response) {
-
-    $headers = getallheaders();
-
-    // Extract the token from the Authorization header
-    if (isset($headers['Authorization'])) {
-        $authHeader = $headers['Authorization'];
-        $token = str_replace('Bearer ', '', $authHeader);
-    } else {
-
-        // Handle the case where no token is provided
-        $token = null;
-
-    }
-    $validatedToken = Auth::validateToken($token);
-    
-    if ($validatedToken) {
-
-        // Token is valid
-        echo json_encode(['status' => 'success']);
-
-    } else {
-
-        // Return an error response
-        http_response_code(401);
-    }
+    Auth::validateLogin();
 });
 
 //Run request handeling in src/Router.php
