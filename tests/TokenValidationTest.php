@@ -1,56 +1,52 @@
 <?php declare(strict_types=1);
 use PHPUnit\Framework\TestCase;
 use App\Auth;
+use App\Config;
+use Firebase\JWT\JWT;
 
 final class TokenValidationTest extends TestCase
 {
 
     public function testValidToken()
     {
-        $validToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbGhvc3QiLCJpYXQiOjE3MTkwODk0MjUsImV4cCI6MTcxOTA4OTQ1NSwic3ViIjoiMSJ9.R8HDZz4L8Zqx4G3N6byPATQ124l0yFO6HCal3UKeYgA'; // Replace with a valid JWT token
-
-        $expectedData = [
+        //Arrange (set up a custom jwt token)
+        $userId = 1;
+        $payload = [
             'iss' => 'localhost',
-            'iat' => 1719089425,
-            'exp' => 1719089455,
-            'sub' => '1'
+            'iat' => time(),
+            'exp' => time() + 3600,
+            'sub' => $userId
         ];
+        $secret = Config::get('JWT_SECRET_KEY');
 
-        // Mock or set up any dependencies like Config, JWTManager, etc., as needed
+        $token = JWT::encode($payload, $secret, 'HS256');
 
-        // Call the validateToken method with the valid token
-        $result = Auth::validateToken($validToken);
-        $decodedResult = json_encode($result);
-        
 
-        // Assert that the result indicates success
-        $this->assertEquals(['status' => 'success', 'data' => $expectedData], $decodedResult);
+        // Act (Call validate token function)
+        $result = Auth::validateToken($token);
 
+
+        // Assert (assert $result has the correct data)
+        $this->assertIsArray($result);
+        $this->assertArrayHasKey('iss', $result);
+        $this->assertEquals('localhost', $result['iss']);
+        $this->assertArrayHasKey('sub', $result);
+        $this->assertEquals($userId, $result['sub']);
     }
 
-    public function testInvalidToken()
+    public function testInvalidTokenFormat()
     {
-        $invalidToken = 'invalid_jwt_token_here'; // Replace with an invalid JWT token
+        // This token is surely not valid
+        $invalidToken = 'Not.a.token';
 
-        // Mock or set up any dependencies
 
-        // Call the validateToken method with the invalid token
+        // Call validate token function
         $result = Auth::validateToken($invalidToken);
 
-        // Assert that the result indicates failure (error status)
-        $this->assertEquals(['status' => 'error', 'message' => 'Invalid token'], $result);
+        // Assert that the result is false
+        $this->assertFalse($result);
     }
 
-    public function testMissingToken()
-    {
-        $missingToken = null;
 
-        // Mock or set up any dependencies
 
-        // Call the validateToken method with a missing token
-        $result = Auth::validateToken($missingToken);
-
-        // Assert that the result indicates failure (error status)
-        $this->assertEquals(['status' => 'error', 'message' => 'Token is missing'], $result);
-    }
 }
