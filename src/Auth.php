@@ -54,7 +54,7 @@ class Auth{
         }
     }
 
-    public static function refreshToken($request) {
+    public static function refreshToken() {
         
         $headers = getallheaders();
 
@@ -94,6 +94,35 @@ class Auth{
                 'status' => 'error',
                 'message' => 'Refresh token is missing'
             ]);
+            http_response_code(401);
+        }
+    }
+
+    
+    public static function validateLogin(){
+
+        $headers = getallheaders();
+
+        // Extract the token from the Authorization header
+        if (isset($headers['Authorization'])) {
+            $authHeader = $headers['Authorization'];
+            $token = str_replace('Bearer ', '', $authHeader);
+        } else {
+
+            // Handle the case where no token is provided
+            $token = null;
+
+        }
+        $validatedToken = Auth::validateToken($token);
+        
+        if ($validatedToken) {
+
+            // Token is valid
+            echo json_encode(['status' => 'success']);
+
+        } else {
+
+            // Return an error response
             http_response_code(401);
         }
     }
