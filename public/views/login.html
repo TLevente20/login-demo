@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="public/css/login.css">
+    <title>Login</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+    <!-- Login from -->
+    <div class="login-container">
+        <h2>Login</h2>
+        <form action="/login" method="POST" id="loginForm">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <input type="text" id="hidden" name="hidden">
+
+            <input type="submit" value="Login">
+        </form>
+        <div id="error-message"></div>
+    </div>
+</body>
+    <script src="public/js/login.js"></script>
+</html>
