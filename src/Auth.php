@@ -1,6 +1,5 @@
 <?php namespace App;
 
-
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Exception;
@@ -50,6 +49,7 @@ class Auth{
             
             return (array)$decoded; // Return decoded token as array
         } catch (Exception $e) {
+            error_log($e);
             return false; // Token is invalid
         }
     }
